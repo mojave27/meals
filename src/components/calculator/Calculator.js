@@ -43,9 +43,11 @@ function Calculator() {
       fat: fat * 9
     }
     if(cals === 0){
-        return 0
+        return '0%'
     }
-    return calories[name] / cals
+    let percentageAsDecimal = calories[name] / cals
+    let percentageAsNumber = `${(percentageAsDecimal*100).toFixed(1)}%`
+    return percentageAsNumber
   }
 
   return (
