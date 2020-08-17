@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Calculator from './calculator/Calculator'
+import FoodItemsProvider from '../context/FoodItemsProvider'
 
 const FakeParent = props => {
   const [percent, setPercent] = useState(1)
@@ -20,26 +21,26 @@ const FakeParent = props => {
         adjustValuesByPercentage(value)
         break
       case 'item':
-        setItem({ ...item, item: roundToTwoDecimals(value)})
+        setItem({ ...item, item: roundToTwoDecimals(value) })
         break
       case 'cals':
-        setItem({ ...item, cals: roundToTwoDecimals(value)})
+        setItem({ ...item, cals: roundToTwoDecimals(value) })
         break
       case 'protein':
-        setItem({ ...item, protein: roundToTwoDecimals(value)})
+        setItem({ ...item, protein: roundToTwoDecimals(value) })
         break
       case 'carbs':
-        setItem({ ...item, carbs: roundToTwoDecimals(value)})
+        setItem({ ...item, carbs: roundToTwoDecimals(value) })
         break
       case 'fat':
-        setItem({ ...item, fat: roundToTwoDecimals(value)})
+        setItem({ ...item, fat: roundToTwoDecimals(value) })
         break
       default:
         console.log(`Sorry, no match for ${name}.`)
     }
   }
 
-  const roundToTwoDecimals = (value) => {
+  const roundToTwoDecimals = value => {
     return Math.round(value * 100) / 100
   }
 
@@ -61,9 +62,9 @@ const FakeParent = props => {
     let newPlier = Number(multiplier).toFixed(2)
     console.log(`newPlier: ${newPlier}`)
     multiplier = newPlier
-    if (percent !== 0) { 
-      let newItem = { 
-        ...item, 
+    if (percent !== 0) {
+      let newItem = {
+        ...item,
         cals: roundToTwoDecimals(props.item.cals * multiplier),
         protein: roundToTwoDecimals(props.item.protein * multiplier),
         carbs: roundToTwoDecimals(props.item.carbs * multiplier),
@@ -73,37 +74,39 @@ const FakeParent = props => {
     }
   }
 
-  const increasePercent = async (event) => {
+  const increasePercent = async event => {
     let id = event.target.id
-    let newPercent = (Number(percent) + 0.1)
+    let newPercent = Number(percent) + 0.1
     console.log(`${id} - ${newPercent}`)
     // await setPercent(newPercent.toFixed(2))
     // adjustValuesByPercentage(newPercent)
   }
 
-  const decreasePercent = async (event) => {
+  const decreasePercent = async event => {
     let id = event.target.id
-    let newPercent = (Number(percent) - 0.1)
+    let newPercent = Number(percent) - 0.1
     console.log(`${id} - ${newPercent}`)
     // await setPercent(newPercent)
     // adjustValuesByPercentage(newPercent)
   }
 
   return (
-    <Calculator 
-      items={props.items}
-      increasePercent={increasePercent}
-      decreasePercent={decreasePercent}
-      handleChange={handleChange}
-      percent={percent}
-      // macros={
-      //   {
-      //     protein: calcMacroPercentage(item.protein),
-      //     carbs: calcMacroPercentage(item.carbs),
-      //     fat: calcMacroPercentage(item.fat)
-      //   }
-      // }
-    />
+    <FoodItemsProvider>
+      <Calculator
+        items={props.items}
+        increasePercent={increasePercent}
+        decreasePercent={decreasePercent}
+        handleChange={handleChange}
+        percent={percent}
+        // macros={
+        //   {
+        //     protein: calcMacroPercentage(item.protein),
+        //     carbs: calcMacroPercentage(item.carbs),
+        //     fat: calcMacroPercentage(item.fat)
+        //   }
+        // }
+      />
+    </FoodItemsProvider>
   )
 }
 
