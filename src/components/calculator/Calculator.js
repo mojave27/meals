@@ -49,6 +49,7 @@ function Calculator(props) {
         <td>
           <button
             id={`${item.id}-increasePercent`}
+            data-itemid={item.id}
             className='w3-circle w3-theme-l2 w3-wide'
             onClick={decreasePercent}
           >
@@ -56,6 +57,7 @@ function Calculator(props) {
           </button>
           <input
             id={`${item.id}-percent`}
+            data-itemid={item.id}
             className='w3-theme-l5'
             style={{ width: '75px', margin: '0px 10px' }}
             name='percent'
@@ -65,6 +67,7 @@ function Calculator(props) {
           />
           <button
             id={`${item.id}-increasePercent`}
+            data-itemid={item.id}
             className='w3-circle w3-theme-l2'
             onClick={increasePercent}
           >
@@ -74,6 +77,7 @@ function Calculator(props) {
         <td>
           <input
             id={`${item.id}-item`}
+            data-itemid={item.id}
             name='item'
             type='text'
             value={item.item}
@@ -83,6 +87,7 @@ function Calculator(props) {
         <td>
           <input
             id={`${item.id}-cals`}
+            data-itemid={item.id}
             style={{ width: '100px' }}
             name='cals'
             type='text'
@@ -93,6 +98,7 @@ function Calculator(props) {
         <td>
           <input
             id={`${item.id}-protein`}
+            data-itemid={item.id}
             style={{ width: '100px' }}
             name='protein'
             type='text'
@@ -103,6 +109,7 @@ function Calculator(props) {
         <td>
           <input
             id={`${item.id}-carbs`}
+            data-itemid={item.id}
             style={{ width: '100px' }}
             name='carbs'
             type='text'
@@ -113,6 +120,7 @@ function Calculator(props) {
         <td>
           <input
             id={`${item.id}-fat`}
+            data-itemid={item.id}
             style={{ width: '100px' }}
             name='fat'
             type='text'

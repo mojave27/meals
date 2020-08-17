@@ -103,16 +103,17 @@ class FoodItemsProvider extends React.Component {
     return (
       <FoodItemsContext.Provider
         value={{
-          woday: this.state.woday,
+          foodItem: this.state.foodItem,
 
-          // copyFoodItem: () => {
-          //   return cloneDeep(this.state.foodItem)
-          // },
+          copyFoodItem: () => {
+            return cloneDeep(this.state.foodItem)
+          },
 
           // saveFoodItem: this.saveFoodItem,
-          // updateFoodItem: foodItem => {
-          //   this.setState({ foodItem })
-          // },
+          updateFoodItem: foodItem => {
+            console.log(`foodItem: ${JSON.stringify(foodItem)}`)
+            this.setState({ foodItem })
+          },
 
           setEmptyFoodItem: () => {
             let foodItem = cloneDeep(emptyFoodItem)
@@ -121,6 +122,10 @@ class FoodItemsProvider extends React.Component {
           },
 
           foodItems: this.state.foodItems,
+
+          copyFoodItems: () => {
+            return cloneDeep(this.state.foodItems)
+          },
 
           updateFoodItems: foodItems => {
             this.setState({ foodItems })

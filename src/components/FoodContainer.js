@@ -1,76 +1,77 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Calculator from './calculator/Calculator'
-import FoodItemsProvider from '../context/FoodItemsProvider'
+import FoodItemsContext from '../context/FoodItemsContext'
+import { updateItemById, retrieveItemById } from './ArrayUtils'
 
-const FakeParent = props => {
+const FoodContainer = props => {
+  let foodContext = useContext(FoodItemsContext)
   const [percent, setPercent] = useState(1)
-  const [item, setItem] = useState(props.item)
+  // const [item, setItem] = useState(props.item)
+
+  const { updateFoodItems } = foodContext
 
   const handleChange = event => {
     let value = event.target.value
     let name = event.target.name
-    let id = event.target.id
+    // let id = event.target.id
+    let id = event.target.dataset['itemid']
 
     console.log(`--id: ${id}`)
     console.log(`--name: ${name}`)
     console.log(`--value: ${value}`)
+    // let item = foodContext.copyFoodItem()
+    let item = retrieveItemById(id, foodContext.foodItems)
 
     switch (name) {
       case 'percent':
         setPercent(value)
         adjustValuesByPercentage(value)
-        break
-      case 'item':
-        setItem({ ...item, item: roundToTwoDecimals(value) })
+        updateFoodItem({ ...item, item: roundToTwoDecimals(value) })
         break
       case 'cals':
-        setItem({ ...item, cals: roundToTwoDecimals(value) })
+        updateFoodItem({ ...item, cals: roundToTwoDecimals(value) })
         break
       case 'protein':
-        setItem({ ...item, protein: roundToTwoDecimals(value) })
+        updateFoodItem({ ...item, protein: roundToTwoDecimals(value) })
         break
       case 'carbs':
-        setItem({ ...item, carbs: roundToTwoDecimals(value) })
+        updateFoodItem({ ...item, carbs: roundToTwoDecimals(value) })
         break
       case 'fat':
-        setItem({ ...item, fat: roundToTwoDecimals(value) })
+        updateFoodItem({ ...item, fat: roundToTwoDecimals(value) })
+        break
+      case 'item':
+        updateFoodItem({ ...item, item: value })
         break
       default:
         console.log(`Sorry, no match for ${name}.`)
     }
   }
 
+  const updateFoodItem = foodItem => {
+    let items = foodContext.copyFoodItems()
+    let updatedItems = updateItemById(foodItem, foodItem.id, items) 
+    updateFoodItems(updatedItems)
+  }
+
   const roundToTwoDecimals = value => {
     return Math.round(value * 100) / 100
   }
 
-  const calcMacroPercentage = name => {
-    let calories = {
-      protein: item.protein * 4,
-      carbs: item.carbs * 4,
-      fat: item.fat * 9
-    }
-    if (item.cals === 0) {
-      return '0%'
-    }
-    let percentageAsDecimal = calories[name] / item.cals
-    let percentageAsNumber = `${(percentageAsDecimal * 100).toFixed(1)}%`
-    return percentageAsNumber
-  }
-
   const adjustValuesByPercentage = multiplier => {
+    let item = foodContext.foodItem
     let newPlier = Number(multiplier).toFixed(2)
     console.log(`newPlier: ${newPlier}`)
     multiplier = newPlier
     if (percent !== 0) {
       let newItem = {
         ...item,
-        cals: roundToTwoDecimals(props.item.cals * multiplier),
-        protein: roundToTwoDecimals(props.item.protein * multiplier),
-        carbs: roundToTwoDecimals(props.item.carbs * multiplier),
-        fat: roundToTwoDecimals(props.item.fat * multiplier)
+        cals: roundToTwoDecimals(item.cals * multiplier),
+        protein: roundToTwoDecimals(item.protein * multiplier),
+        carbs: roundToTwoDecimals(item.carbs * multiplier),
+        fat: roundToTwoDecimals(item.fat * multiplier)
       }
-      setItem(newItem)
+      updateFoodItem(newItem)
     }
   }
 
@@ -91,9 +92,8 @@ const FakeParent = props => {
   }
 
   return (
-    <FoodItemsProvider>
       <Calculator
-        items={props.items}
+        // items={props.items}
         increasePercent={increasePercent}
         decreasePercent={decreasePercent}
         handleChange={handleChange}
@@ -106,8 +106,7 @@ const FakeParent = props => {
         //   }
         // }
       />
-    </FoodItemsProvider>
   )
 }
 
-export default FakeParent
+export default FoodContainer
