@@ -2,41 +2,33 @@ import React from 'react';
 import './main.css'
 import './w3.css'
 import './w3-theme.css'
-// import Calculator from './components/calculator/Calculator';
 import FakeParent from './components/FakeParent'
 
-const original = {
-    item: 'test item from props',
-    cals: 100,
-    protein: 18,
-    carbs: 3,
-    fat: 1.5
-}
 const foodItems = [
   {
+    id: 0,
+    percent: 1,
     item: 'egg, large',
-    quantity: 1,
-    unit: 1,
-    calories: 71,
-    pgrams: 6,
-    cgrams: 0,
-    fgrams: 5
+    cals: 71,
+    protein: 6,
+    carbs: 0,
+    fat: 5
   },
   {
+    id: 1,
+    percent: 1,
     item: 'applegate chicken and sage sausage',
-    quantity: 1,
-    unit: 3,
-    calories: 110,
-    pgrams: 9,
-    cgrams: 1,
-    fgrams: 8
+    cals: 110,
+    protein: 9,
+    carbs: 1,
+    fat: 8
   }
 ];
 
 function App() {
   return (
     <div className="w3-container w3-theme w3-myfont" style={{minHeight:'100vh'}}>
-        <FakeParent item={original} />
+        <FakeParent items={foodItems} />
     </div>
   );
 }

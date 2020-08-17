@@ -8,9 +8,11 @@ const FakeParent = props => {
   const handleChange = event => {
     let value = event.target.value
     let name = event.target.name
+    let id = event.target.id
 
-    console.log(`name: ${name}`)
-    console.log(`value: ${value}`)
+    console.log(`--id: ${id}`)
+    console.log(`--name: ${name}`)
+    console.log(`--value: ${value}`)
 
     switch (name) {
       case 'percent':
@@ -18,11 +20,9 @@ const FakeParent = props => {
         adjustValuesByPercentage(value)
         break
       case 'item':
-        // setItem(value)
         setItem({ ...item, item: roundToTwoDecimals(value)})
         break
       case 'cals':
-        // setCals(roundToTwoDecimals(value))
         setItem({ ...item, cals: roundToTwoDecimals(value)})
         break
       case 'protein':
@@ -30,11 +30,9 @@ const FakeParent = props => {
         break
       case 'carbs':
         setItem({ ...item, carbs: roundToTwoDecimals(value)})
-        // setCarbs(roundToTwoDecimals(value))
         break
       case 'fat':
         setItem({ ...item, fat: roundToTwoDecimals(value)})
-        // setFat(roundToTwoDecimals(value))
         break
       default:
         console.log(`Sorry, no match for ${name}.`)
@@ -75,33 +73,36 @@ const FakeParent = props => {
     }
   }
 
-  const increasePercent = async () => {
+  const increasePercent = async (event) => {
+    let id = event.target.id
     let newPercent = (Number(percent) + 0.1)
-    console.log(newPercent)
-    await setPercent(newPercent.toFixed(2))
-    adjustValuesByPercentage(newPercent)
+    console.log(`${id} - ${newPercent}`)
+    // await setPercent(newPercent.toFixed(2))
+    // adjustValuesByPercentage(newPercent)
   }
 
-  const decreasePercent = async () => {
+  const decreasePercent = async (event) => {
+    let id = event.target.id
     let newPercent = (Number(percent) - 0.1)
-    await setPercent(newPercent)
-    adjustValuesByPercentage(newPercent)
+    console.log(`${id} - ${newPercent}`)
+    // await setPercent(newPercent)
+    // adjustValuesByPercentage(newPercent)
   }
 
   return (
     <Calculator 
-      item={item}
+      items={props.items}
       increasePercent={increasePercent}
       decreasePercent={decreasePercent}
       handleChange={handleChange}
       percent={percent}
-      macros={
-        {
-          protein: calcMacroPercentage(item.protein),
-          carbs: calcMacroPercentage(item.carbs),
-          fat: calcMacroPercentage(item.fat)
-        }
-      }
+      // macros={
+      //   {
+      //     protein: calcMacroPercentage(item.protein),
+      //     carbs: calcMacroPercentage(item.carbs),
+      //     fat: calcMacroPercentage(item.fat)
+      //   }
+      // }
     />
   )
 }

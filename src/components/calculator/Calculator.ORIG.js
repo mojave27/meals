@@ -6,93 +6,12 @@ function Calculator(props) {
       props.handleChange(event)
   }
 
-  const increasePercent = async (event) => {
-      props.increasePercent(event)
+  const increasePercent = async () => {
+      props.increasePercent()
   }
 
-  const decreasePercent = async (event) => {
-      props.decreasePercent(event)
-  }
-
-  const renderFoodItem = item => {
-      return (
-          <tr key={item.id} className='w3-border'>
-            <td>
-              <button
-                id={`${item.id}-increasePercent`}
-                className='w3-circle w3-theme-l2 w3-wide'
-                onClick={decreasePercent}
-              >
-                {'-'}
-              </button>
-              <input
-                id={`${item.id}-percent`}
-                className='w3-theme-l5'
-                style={{ width: '75px', margin: '0px 10px' }}
-                name='percent'
-                type='text'
-                value={item.percent}
-                onChange={handleChange}
-              />
-              <button
-                id={`${item.id}-increasePercent`}
-                className='w3-circle w3-theme-l2'
-                onClick={increasePercent}
-              >
-                {'+'}
-              </button>
-            </td>
-            <td>
-              <input
-                id={`${item.id}-item`}
-                name='item'
-                type='text'
-                value={item.item}
-                onChange={handleChange}
-              />
-            </td>
-            <td>
-              <input
-                id={`${item.id}-cals`}
-                style={{ width: '100px' }}
-                name='cals'
-                type='text'
-                value={item.cals}
-                onChange={handleChange}
-              />
-            </td>
-            <td>
-              <input
-                id={`${item.id}-protein`}
-                style={{ width: '100px' }}
-                name='protein'
-                type='text'
-                value={item.protein}
-                onChange={handleChange}
-              />
-            </td>
-            <td>
-              <input
-                id={`${item.id}-carbs`}
-                style={{ width: '100px' }}
-                name='carbs'
-                type='text'
-                value={item.carbs}
-                onChange={handleChange}
-              />
-            </td>
-            <td>
-              <input
-                id={`${item.id}-fat`}
-                style={{ width: '100px' }}
-                name='fat'
-                type='text'
-                value={item.fat}
-                onChange={handleChange}
-              />
-            </td>
-          </tr>
-      )
+  const decreasePercent = async () => {
+      props.decreasePercent()
   }
 
   return (
@@ -107,17 +26,81 @@ function Calculator(props) {
             <th>carb grams</th>
             <th>fat grams</th>
           </tr>
-          {props.items.map( item => renderFoodItem(item))}
+          <tr className='w3-border'>
+            <td>
+              <button
+                className='w3-circle w3-theme-l2 w3-wide'
+                onClick={decreasePercent}
+              >
+                {'-'}
+              </button>
+              <input
+                className='w3-theme-l5'
+                style={{ width: '75px', margin: '0px 10px' }}
+                name='percent'
+                type='text'
+                value={props.percent}
+                onChange={handleChange}
+              />
+              <button
+                className='w3-circle w3-theme-l2'
+                onClick={increasePercent}
+              >
+                {'+'}
+              </button>
+            </td>
+            <td>
+              <input
+                name='item'
+                type='text'
+                value={props.item.item}
+                onChange={handleChange}
+              />
+            </td>
+            <td>
+              <input
+                style={{ width: '100px' }}
+                name='cals'
+                type='text'
+                value={props.item.cals}
+                onChange={handleChange}
+              />
+            </td>
+            <td>
+              <input
+                style={{ width: '100px' }}
+                name='protein'
+                type='text'
+                value={props.item.protein}
+                onChange={handleChange}
+              />
+            </td>
+            <td>
+              <input
+                style={{ width: '100px' }}
+                name='carbs'
+                type='text'
+                value={props.item.carbs}
+                onChange={handleChange}
+              />
+            </td>
+            <td>
+              <input
+                style={{ width: '100px' }}
+                name='fat'
+                type='text'
+                value={props.item.fat}
+                onChange={handleChange}
+              />
+            </td>
+          </tr>
           <tr>
             <td></td>
             <td></td>
             <td></td>
-            {/* <td>{props.macros.protein}</td>
+            <td>{props.macros.protein}</td>
             <td>{props.macros.carbs}</td>
-            <td>{props.macros.fat}</td> */}
-            <td style={{color:'#222'}}>{'protein macro'}</td>
-            <td style={{color:'#222'}}>{'carbs macro'}</td>
-            <td style={{color:'#222'}}>{'fat macro'}</td>
+            <td>{props.macros.fat}</td>
           </tr>
         </tbody>
       </table>
