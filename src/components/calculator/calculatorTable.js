@@ -1,18 +1,24 @@
 import React from 'react'
 
-function Calculator(props) {
+const calculatorTable = (props) => {
 
   const handleChange = event => {
-      props.handleChange(event)
+    // const target = event.target
+    props.handleChange(event)
   }
 
-  const increasePercent = async () => {
-      props.increasePercent()
-  }
+  // const increasePercent = async () => {
+  //   let newPercent = (Number(percent) + 0.1)
+  //   console.log(newPercent)
+  //   await setPercent(newPercent.toFixed(2))
+  //   adjustValuesByPercentage(newPercent)
+  // }
 
-  const decreasePercent = async () => {
-      props.decreasePercent()
-  }
+  // const decreasePercent = async () => {
+  //   let newPercent = (Number(percent) - 0.1)
+  //   await setPercent(newPercent)
+  //   adjustValuesByPercentage(newPercent)
+  // }
 
   return (
     <div className='w3-container' style={{ margin: '50px' }}>
@@ -30,7 +36,7 @@ function Calculator(props) {
             <td>
               <button
                 className='w3-circle w3-theme-l2 w3-wide'
-                onClick={decreasePercent}
+                onClick={props.decreasePercent}
               >
                 {'-'}
               </button>
@@ -44,7 +50,7 @@ function Calculator(props) {
               />
               <button
                 className='w3-circle w3-theme-l2'
-                onClick={increasePercent}
+                onClick={props.increasePercent}
               >
                 {'+'}
               </button>
@@ -108,4 +114,4 @@ function Calculator(props) {
   )
 }
 
-export default Calculator
+export default calculatorTable
